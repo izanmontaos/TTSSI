@@ -4,14 +4,17 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.wifi.WifiManager
-import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 data class NetworkDetails(
     val ssid: String,
     val ipAddress: String,
-    val signalStrength: Int
+    val signalStrength: Int,
+    val networkType: String,
+    val linkSpeed: Int?,
+    val frequency: Int?,
+    val macAddress: String?
 )
 
 class NetworkAnalysisService @Inject constructor(
@@ -21,18 +24,37 @@ class NetworkAnalysisService @Inject constructor(
     private val wifiManager: WifiManager =
         context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
 
+    private val connectivityManager =
+        context.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
     fun getNetworkDetails(): NetworkDetails? {
         val wifiInfo = wifiManager.connectionInfo
-        if (wifiInfo != null && wifiInfo.ssid != "<unknown ssid>") {
-            val ssid = wifiInfo.ssid.removePrefix("\"").removeSuffix("\"")
-            val ipAddress = intToIp(wifiInfo.ipAddress)
-            val signalStrength = WifiManager.calculateSignalLevel(wifiInfo.rssi, 100)
+        val networkType = getNetworkType()
+        val ssid = wifiInfo.ssid.removePrefix("\"").removeSuffix("\"")
+        val ipAddress = intToIp(wifiInfo.ipAddress)
+        val signalStrength = WifiManager.calculateSignalLevel(wifiInfo.rssi, 100)
+        val linkSpeed = wifiInfo.linkSpeed // Mbps
+        val frequency = wifiInfo.frequency // MHz
+        val macAddress = wifiInfo.macAddress
 
-            Log.d("NetworkAnalysisService", "SSID: $ssid, IP: $ipAddress, Signal: $signalStrength")
+        return NetworkDetails(
+            ssid = ssid,
+            ipAddress = ipAddress,
+            signalStrength = signalStrength,
+            networkType = networkType,
+            linkSpeed = if (linkSpeed > 0) linkSpeed else null,
+            frequency = if (frequency > 0) frequency else null,
+            macAddress = macAddress.takeIf { it.isNotEmpty() }
+        )
+    }
 
-            return NetworkDetails(ssid, ipAddress, signalStrength)
+    private fun getNetworkType(): String {
+        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        return when {
+            capabilities?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) == true -> "Wi-Fi"
+            capabilities?.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) == true -> "Mobile Data"
+            else -> "Unknown"
         }
-        return null
     }
 
     private fun intToIp(ip: Int): String {

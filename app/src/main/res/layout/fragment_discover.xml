@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
     android:background="@color/primary"
     tools:context=".ui.Discover.DiscoverFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- Botón para iniciar el descubrimiento de hosts -->
+    <Button
+        android:id="@+id/btnDiscoverHosts"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:text="Discover Hosts" />
 
-</FrameLayout>
+    <!-- ListView para mostrar los hosts descubiertos -->
+    <ListView
+        android:id="@+id/listHosts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" />
+</LinearLayout>

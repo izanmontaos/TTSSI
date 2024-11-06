@@ -8,29 +8,78 @@
     android:background="@color/primary"
     tools:context=".ui.Analisis.AnalisisFragment">
 
-    <!-- TextView para el SSID de la red -->
+    <!-- Título de la pantalla -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Network Analysis"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Información de la Red -->
     <TextView
         android:id="@+id/ssidText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SSID: "
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textColor="@android:color/white" />
 
-    <!-- TextView para la dirección IP de la red -->
+    <TextView
+        android:id="@+id/networkTypeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Network Type: "
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="8dp" />
+
     <TextView
         android:id="@+id/ipText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="IP Address: "
         android:textSize="18sp"
+        android:textColor="@android:color/white"
         android:layout_marginTop="8dp" />
 
-    <!-- TextView para la intensidad de la señal de la red -->
     <TextView
         android:id="@+id/signalText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Signal Strength: "
         android:textSize="18sp"
+        android:textColor="@android:color/white"
         android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/linkSpeedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Link Speed: "
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/frequencyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Frequency: "
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/macAddressText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MAC Address: "
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="8dp" />
+
 </LinearLayout>

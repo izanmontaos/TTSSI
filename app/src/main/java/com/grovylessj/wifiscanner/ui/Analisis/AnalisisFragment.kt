@@ -25,10 +25,20 @@ class AnalisisFragment : Fragment() {
         viewModel.networkDetails.observe(viewLifecycleOwner) { details ->
             details?.let {
                 binding.ssidText.text = "SSID: ${it.ssid}"
+                binding.networkTypeText.text = "Network Type: ${it.networkType}"
                 binding.ipText.text = "IP Address: ${it.ipAddress}"
                 binding.signalText.text = "Signal Strength: ${it.signalStrength}%"
+                binding.linkSpeedText.text = "Link Speed: ${it.linkSpeed ?: "N/A"} Mbps"
+                binding.frequencyText.text = "Frequency: ${it.frequency ?: "N/A"} MHz"
+                binding.macAddressText.text = "MAC Address: ${it.macAddress ?: "N/A"}"
             } ?: run {
                 binding.ssidText.text = "No network connected"
+                binding.networkTypeText.text = ""
+                binding.ipText.text = ""
+                binding.signalText.text = ""
+                binding.linkSpeedText.text = ""
+                binding.frequencyText.text = ""
+                binding.macAddressText.text = ""
             }
         }
 
