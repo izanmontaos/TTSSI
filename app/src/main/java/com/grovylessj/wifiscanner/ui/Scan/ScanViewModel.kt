@@ -13,13 +13,15 @@ class ScanViewModel @Inject constructor(
     private val networkRepository: NetworkRepository
 ) : ViewModel() {
 
-    // Exponemos los resultados del escaneo para que el Fragment lo observe
     val availableNetworks: LiveData<List<String>> = networkRepository.scanResults
 
-    // Método para iniciar el escaneo
     fun startNetworkScan() {
         viewModelScope.launch {
             networkRepository.startScan()
         }
+    }
+
+    fun unregisterReceiver() {
+        networkRepository.unregisterReceiver()
     }
 }

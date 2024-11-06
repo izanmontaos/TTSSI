@@ -13,7 +13,7 @@ object PermissionUtils {
         return ContextCompat.checkSelfPermission(
             activity,
             android.Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED &&
+        ) == PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(
                     activity,
                     android.Manifest.permission.ACCESS_COARSE_LOCATION

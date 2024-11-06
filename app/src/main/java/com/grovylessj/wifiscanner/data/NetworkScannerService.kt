@@ -38,12 +38,10 @@ class NetworkScannerService @Inject constructor(
     }
 
     init {
-        // Registra el BroadcastReceiver para escuchar SCAN_RESULTS_AVAILABLE_ACTION
         context.registerReceiver(scanReceiver, IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION))
     }
 
     fun startScan() {
-        // Verifica si el WifiManager y los permisos de ubicación están disponibles
         if (wifiManager == null) {
             Log.e("NetworkScannerService", "WifiManager no está disponible.")
             return
@@ -55,7 +53,6 @@ class NetworkScannerService @Inject constructor(
             return
         }
 
-        // Intenta iniciar el escaneo
         val scanStarted = try {
             wifiManager.startScan()
         } catch (e: SecurityException) {
@@ -69,7 +66,6 @@ class NetworkScannerService @Inject constructor(
     }
 
     private fun handleScanSuccess() {
-        // Obtiene los resultados del escaneo de manera segura
         val results: List<ScanResult> = try {
             wifiManager?.scanResults ?: emptyList()
         } catch (e: SecurityException) {
@@ -77,7 +73,6 @@ class NetworkScannerService @Inject constructor(
             emptyList()
         }
 
-        // Filtra los resultados para devolver solo los SSID no vacíos
         _scanResults.postValue(results.mapNotNull { it.SSID.takeIf { ssid -> ssid.isNotEmpty() } })
     }
 
@@ -98,7 +93,12 @@ class NetworkScannerService @Inject constructor(
     }
 
     fun unregisterReceiver() {
-        // Desregistrar el BroadcastReceiver cuando ya no se necesite
-        context.unregisterReceiver(scanReceiver)
+        try {
+            context.unregisterReceiver(scanReceiver)
+        } catch (e: IllegalArgumentException) {
+            Log.w("NetworkScannerService", "Receiver not registered or already unregistered", e)
+        }
     }
+
+    
 }
