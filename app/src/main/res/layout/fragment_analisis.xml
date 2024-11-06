@@ -1,15 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
     android:background="@color/primary"
     tools:context=".ui.Analisis.AnalisisFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- TextView para el SSID de la red -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/ssidText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SSID: "
+        android:textSize="18sp" />
 
-</FrameLayout>
+    <!-- TextView para la dirección IP de la red -->
+    <TextView
+        android:id="@+id/ipText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="IP Address: "
+        android:textSize="18sp"
+        android:layout_marginTop="8dp" />
+
+    <!-- TextView para la intensidad de la señal de la red -->
+    <TextView
+        android:id="@+id/signalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Signal Strength: "
+        android:textSize="18sp"
+        android:layout_marginTop="8dp" />
+</LinearLayout>
