@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/scanFragment"
+        android:title="@string/ScanIcon"
+        android:icon="@drawable/scanicon" />
+
+    <item
+        android:id="@+id/analisisFragment"
+        android:title="@string/NetDetailsIcon"
+        android:icon="@drawable/netdetailsicon" />
+
+    <item
+        android:id="@+id/discoverFragmentFragment"
+        android:title="@string/DiscoverIcon"
+        android:icon="@drawable/discovericon" />
+
+</menu>

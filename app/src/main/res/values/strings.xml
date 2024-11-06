@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">WifiScanner</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    //Bottom Bar
+    <string name="ScanIcon">Scan</string>
+    <string name="DiscoverIcon">Discover Hosts</string>
+    <string name="NetDetailsIcon">Net Details</string>
+
+
+</resources>
