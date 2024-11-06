@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
     android:background="@color/primary"
     tools:context=".ui.Scan.ScanFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- Botón para iniciar el escaneo -->
+    <Button
+        android:id="@+id/btnScanNetworks"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:text="Scan Networks" />
 
-</FrameLayout>
+    <!-- ListView para mostrar las redes disponibles -->
+    <ListView
+        android:id="@+id/listNetworks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" />
+</LinearLayout>
