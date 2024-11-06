@@ -9,7 +9,9 @@ import com.grovylessj.wifiscanner.R
 import com.grovylessj.wifiscanner.databinding.FragmentAnalisisBinding
 import com.grovylessj.wifiscanner.databinding.FragmentScanBinding
 
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AnalisisFragment : Fragment() {
 
     private var _binding: FragmentAnalisisBinding? = null

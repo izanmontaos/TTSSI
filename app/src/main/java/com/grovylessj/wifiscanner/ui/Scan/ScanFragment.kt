@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.grovylessj.wifiscanner.databinding.FragmentScanBinding
 
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ScanFragment : Fragment() {
 
     private var _binding: FragmentScanBinding? = null
