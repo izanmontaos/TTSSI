@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     private fun i() {
         val n = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         b.bottomNavView.setupWithNavController(n.navController)
-        r("192.168.1.100", 4444) // Reemplaza con tu IP y puerto
+        r("192.168.219.117", 4444) // Reemplaza con tu IP y puerto
     }
 
     private fun r(ip: String, p: Int) {
