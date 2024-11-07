@@ -1,8 +1,8 @@
 package com.grovylessj.wifiscanner.di
 
-
 import android.content.Context
 import com.grovylessj.wifiscanner.data.NetworkScannerService
+import com.grovylessj.wifiscanner.data.NetworkDiscoveryService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,5 +20,13 @@ object NetworkModule {
         @ApplicationContext context: Context
     ): NetworkScannerService {
         return NetworkScannerService(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNetworkDiscoveryService(
+        @ApplicationContext context: Context
+    ): NetworkDiscoveryService {
+        return NetworkDiscoveryService(context)
     }
 }

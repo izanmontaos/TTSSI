@@ -18,9 +18,9 @@ class DiscoverViewModel @Inject constructor(
     private val _hosts = MutableLiveData<List<HostDevice>>()
     val hosts: LiveData<List<HostDevice>> get() = _hosts
 
-    fun discoverHosts(subnet: String) {
+    fun discoverHosts() {
         viewModelScope.launch {
-            _hosts.postValue(repository.discoverHosts(subnet))
+            _hosts.postValue(repository.discoverHosts())
         }
     }
 }

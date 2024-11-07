@@ -28,14 +28,17 @@ class DiscoverFragment : Fragment() {
         adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, mutableListOf())
         binding.listHosts.adapter = adapter
 
+        // Iniciar el descubrimiento de hosts cuando se haga clic en el botón
         binding.btnDiscoverHosts.setOnClickListener {
-            val subnet = "192.168.1"  // Este es un ejemplo; podrías obtener el prefijo de tu red
-            viewModel.discoverHosts(subnet)
+            viewModel.discoverHosts()  // Llama al descubrimiento sin especificar subred
         }
 
+        // Observar los cambios en la lista de hosts descubiertos
         viewModel.hosts.observe(viewLifecycleOwner) { hosts ->
             adapter.clear()
-            adapter.addAll(hosts.map { "IP: ${it.ipAddress}, Host: ${it.hostName ?: "Unknown"}" })
+            adapter.addAll(hosts.map { host ->
+                "IP: ${host.ipAddress}, Host: ${host.hostName ?: "Desconocido"}"
+            })
             adapter.notifyDataSetChanged()
         }
 
