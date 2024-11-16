@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@color/primary"
-    tools:context=".ui.Scan.ScanFragment">
+    tools:context="com.izan.wifiscanner.ui.Scan.ScanFragment">
 
     <!-- Botón para iniciar el escaneo -->
     <Button

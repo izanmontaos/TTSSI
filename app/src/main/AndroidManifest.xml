@@ -18,12 +18,12 @@
         android:icon="@drawable/wifiapp"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_launcher_background"
-        android:name=".WifiScannerApp"
+        android:name="com.izan.wifiscanner.WifiScannerApp"
         android:supportsRtl="true"
         android:theme="@style/Theme.WifiScanner"
         tools:targetApi="31">
         <activity
-            android:name=".ui.home.MainActivity"
+            android:name="com.izan.wifiscanner.ui.home.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

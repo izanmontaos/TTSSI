@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@color/primary"
-    tools:context=".ui.Discover.DiscoverFragment">
+    tools:context="com.izan.wifiscanner.ui.Discover.DiscoverFragment">
 
     <!-- Botón para iniciar el descubrimiento de hosts -->
     <Button

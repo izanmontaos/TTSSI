@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@color/primary"
-    tools:context=".ui.Analisis.AnalisisFragment">
+    tools:context="com.izan.wifiscanner.ui.Analisis.AnalisisFragment">
 
     <!-- Título de la pantalla -->
     <TextView
